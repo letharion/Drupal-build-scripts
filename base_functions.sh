@@ -24,5 +24,7 @@ function apply_patch {
 }
 
 function invoke {
-  ${DOMAIN}_${1}
+  if [ "$(type -t ${DOMAIN}_${1})" = "function" ]; then
+    ${DOMAIN}_${1}
+  fi
 }
