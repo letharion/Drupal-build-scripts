@@ -1,1 +1,16 @@
 This project is deprecated in favor of  drush Provision.
+
+Install with:
+ln -s build/build.sh build.sh
+ln -s build/install.sh install.sh
+
+build.conf.sh MUST have DOMAIN and TOPDOMAIN defined.
+You may also implement hook_pre_install and hook_post_install.
+
+Example:
+DOMAIN=awesome
+TOPDOMAIN=super
+
+awesome_pre_install {
+  echo "Now installing"
+}
