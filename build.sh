@@ -17,6 +17,8 @@ run_cmd "ln -s ../../${DOMAIN}_profile ${DOMAIN}" "web/profiles"
 
 run_cmd "drush -y make --working-copy profiles/${DOMAIN}/${DOMAIN}.make" "web";
 
+invoke "post_build";
+
 run_cmd "git clone --branch 7.x-2.x http://git.drupal.org/project/nodestream nodestream" "web/profiles";
 #run_cmd "git clone http://git.drupal.org/project/nodestream nodestream" "web/profiles";
 #run_cmd "git checkout 7.x-2.0-alpha7" "web/profiles/nodestream";
