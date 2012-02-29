@@ -1,7 +1,32 @@
 #!/bin/bash
 source build.conf.sh
 
+#!/bin/bash -x
+
+keepns=false
+
+while getopts ":n" opt; do
+  case $opt in
+    n)
+      keepns=true
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
+
 FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}"
+
+# OSX does not necessarily have seq, so we implement it.
+function seq {
+  local I=$1;
+  while [ $2 != $I ]; do {
+    echo -n "$I ";
+    I=$(( $I + 1 ))
+  }; done;
+  echo $2
+}
 
 #pushd and popd doesn't have a quite option, so we enforce silence
 function run_cmd {
@@ -27,4 +52,10 @@ function invoke {
   if [ "$(type -t ${DOMAIN}_${1})" = "function" ]; then
     ${DOMAIN}_${1}
   fi
+}
+
+function run_hooked_cmd {
+  invoke "pre_${1}"
+  run_cmd "${2}" "${3}"
+  invoke "post_${1}"
 }
