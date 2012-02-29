@@ -22,7 +22,7 @@ run_cmd "ln -s ../../${DOMAIN}_profile ${DOMAIN}" "web/profiles"
 run_hooked_cmd "profile_make" "drush -y make --working-copy profiles/${DOMAIN}/${DOMAIN}.make" "web";
 
 if $keepns; then
-  run_cmd "tar xaf .nodestream.tar.gz"
+  run_cmd "tar xzf .nodestream.tar.gz"
 else
   run_cmd "git clone --branch 7.x-2.x http://git.drupal.org/project/nodestream nodestream" "web/profiles";
   run_cmd "drush -y make --no-core --contrib-destination=. drupal-org.make" "web/profiles/nodestream" 
