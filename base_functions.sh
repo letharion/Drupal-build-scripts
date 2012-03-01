@@ -45,6 +45,7 @@ function apply_patch {
     PATCH_DIR="../${PATCH_DIR}";
   done
 
+  echo "Applying patch ${1} in ${2}"
   run_cmd "git apply ${PATCH_DIR}${1}" "${2}" 
 }
 
