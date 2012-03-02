@@ -1,16 +1,27 @@
-This project is deprecated in favor of  drush Provision.
+This project will at some future point be replaced with drush and provision..
 
-Install with:
-ln -s build/build.sh build.sh
-ln -s build/install.sh install.sh
+## Install with:
 
-build.conf.sh MUST have DOMAIN and TOPDOMAIN defined.
-You may also implement hook_pre_install and hook_post_install.
+* git submodule add git@github.com:letharion/Drupal-build-scripts.git build
+* git submodule init
+* git submodule update
+* ln -s build/build.sh build.sh
+* ln -s build/install.sh install.sh
 
-Example:
-DOMAIN=awesome
-TOPDOMAIN=super
+### Configuration
+In your root directory, create a build.conf.sh, which MUST have DOMAIN and TOPDOMAIN defined.
 
-awesome_pre_install {
+### Hooks
+Each hook supports a pre and a post op.
+
+* hook_OP_install
+* hook_OP_profile_make
+* hook_OP_nodestream_make
+
+### Example build.conf.sh:
+DOMAIN=nodeone
+TOPDOMAIN=se
+
+nodeone_pre_install {
   echo "Now installing"
 }
