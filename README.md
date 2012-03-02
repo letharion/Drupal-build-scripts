@@ -23,7 +23,7 @@ Each hook supports a pre and a post op.
 DOMAIN=nodeone
 TOPDOMAIN=se
 
-nodeone_pre_nodestream_make {
+nodeone_post_nodestream_make {
   apply_patch "1463002-1-ctools--avoid_casting_notice_in_pm.patch" "web/profiles/nodestream/modules/ctools"
 }
 
