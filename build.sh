@@ -25,7 +25,7 @@ if $keepns; then
   run_cmd "mv .nodestream web/profiles/nodestream"
 else
   run_cmd "git clone --branch 7.x-2.x http://git.drupal.org/project/nodestream nodestream" "web/profiles";
-  run_cmd "drush -y make --no-core --contrib-destination=. drupal-org.make" "web/profiles/nodestream" 
+  run_hooked_cmd "nodestream_make" "drush -y make --no-core --contrib-destination=. drupal-org.make" "web/profiles/nodestream" 
 
   # We lack support for picking a NS version here
   #run_cmd "git clone http://git.drupal.org/project/nodestream nodestream" "web/profiles";
