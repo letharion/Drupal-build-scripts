@@ -24,8 +24,10 @@ run_hooked_cmd "profile_make" "drush -y make --working-copy profiles/${DOMAIN}/$
 if $keepns; then
   run_cmd "mv .nodestream web/profiles/nodestream"
 else
+  invoke "pre_nodestream_make"
   run_cmd "git clone --branch 7.x-2.x http://git.drupal.org/project/nodestream nodestream" "web/profiles";
   run_cmd "drush -y make --no-core --contrib-destination=. drupal-org.make" "web/profiles/nodestream" 
+  invoke "post_nodestream_make"
 
   # We lack support for picking a NS version here
   #run_cmd "git clone http://git.drupal.org/project/nodestream nodestream" "web/profiles";
