@@ -19,9 +19,11 @@ Each hook supports a pre and a post op.
 * hook_OP_nodestream_make
 
 ### Example build.conf.sh:
+```bash
 DOMAIN=nodeone
 TOPDOMAIN=se
 
 nodeone_pre_install {
   echo "Now installing"
 }
+```
