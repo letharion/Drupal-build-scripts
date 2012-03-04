@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ ! -f build.conf.sh ]; then
+  echo "You need to create a build.conf.sh file. See the README for an example."
+  exit 1;
+fi
 source build.conf.sh
 
 #!/bin/bash -x
@@ -19,7 +23,7 @@ done
 FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}"
 
 # OSX does not necessarily have seq, so we implement it.
-function seq {
+seq() {
   local I=$1;
   while [ $2 != $I ]; do {
     echo -n "$I ";
@@ -29,7 +33,7 @@ function seq {
 }
 
 #pushd and popd doesn't have a quite option, so we enforce silence
-function run_cmd {
+run_cmd() {
   if pushd "$2" > /dev/null; then
     if ! eval $1; then
       exit 1
@@ -38,7 +42,7 @@ function run_cmd {
   fi
 }
 
-function apply_patch {
+apply_patch() {
   DEPTH=$(echo ${2}|sed 's/[^/]//g'|wc -m)
   PATCH_DIR="patches/";
   for i in $(seq 1 ${DEPTH}); do
@@ -49,13 +53,13 @@ function apply_patch {
   run_cmd "git apply ${PATCH_DIR}${1}" "${2}" 
 }
 
-function invoke {
+invoke() {
   if [ "$(type -t ${DOMAIN}_${1})" = "function" ]; then
     ${DOMAIN}_${1}
   fi
 }
 
-function run_hooked_cmd {
+run_hooked_cmd() {
   invoke "pre_${1}"
   run_cmd "${2}" "${3}"
   invoke "post_${1}"
