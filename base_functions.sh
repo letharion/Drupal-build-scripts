@@ -5,14 +5,13 @@ if [ ! -f build.conf.sh ]; then
 fi
 source build.conf.sh
 
-#!/bin/bash -x
-
-keepns=false
+NEWWEB="web-$(date +%F-%R)";
+KEEPNS=false
 
 while getopts ":n" opt; do
   case $opt in
     n)
-      keepns=true
+      KEEPNS=true
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -64,3 +63,13 @@ run_hooked_cmd() {
   run_cmd "${2}" "${3}"
   invoke "post_${1}"
 }
+
+die() {
+  echo "${1}"
+  exit 1;
+}
+
+if [ -e web ] && [ ! -L web ]; then
+  die "web/ exists, but is not a symlink. Please remove it, as it will be overwritten."
+fi
+
