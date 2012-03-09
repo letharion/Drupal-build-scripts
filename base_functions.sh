@@ -1,12 +1,21 @@
 #!/bin/bash
 if [ ! -f build.conf.sh ]; then
-  echo "You need to create a build.conf.sh file. See the README for an example."
+  echo "You need to create a build.conf.sh file. See the README for an example.";
   exit 1;
 fi
-source build.conf.sh
+source build.conf.sh;
+
+if [ -e web ] && [ ! -L web ]; then
+  die "web/ exists, but is not a symlink. Please remove it, as it will be overwritten."
+else
+  OLDWEB=`readlink web`;
+fi
 
 NEWWEB="web-$(date +%F-%R)";
-KEEPNS=false
+KEEPNS=false;
+NS="nodestream";
+NSPROFILE="profiles/nodestream";
+FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
 
 while getopts ":n" opt; do
   case $opt in
@@ -19,8 +28,6 @@ while getopts ":n" opt; do
   esac
 done
 
-FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}"
-
 # OSX does not necessarily have seq, so we implement it.
 seq() {
   local I=$1;
@@ -31,7 +38,7 @@ seq() {
   echo $2
 }
 
-#pushd and popd doesn't have a quite option, so we enforce silence
+# pushd and popd doesn't have a quite option, so we enforce silence
 run_cmd() {
   if pushd "$2" > /dev/null; then
     if ! eval $1; then
@@ -69,7 +76,14 @@ die() {
   exit 1;
 }
 
-if [ -e web ] && [ ! -L web ]; then
-  die "web/ exists, but is not a symlink. Please remove it, as it will be overwritten."
-fi
+ask() {
+  local ACCEPT="y"
+  if [ "${3}" != "" ]; then
+    local ACCEPT="${3}"
+  fi
 
+  read -p "${1} (y/N)? "
+  if [ "${REPLY}" == "${ACCEPT}" ]; then
+    run_cmd "${2}";
+  fi
+}
