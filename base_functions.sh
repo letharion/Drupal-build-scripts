@@ -16,6 +16,9 @@ KEEPNS=false;
 NS="nodestream";
 NSPROFILE="profiles/nodestream";
 FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
+if [ ! $PROFILENAME ]; then
+  PROFILENAME=${DOMAIN}
+fi
 
 while getopts ":n" opt; do
   case $opt in

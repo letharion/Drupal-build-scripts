@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 source build/base_functions.sh
 
@@ -6,9 +6,9 @@ run_cmd "mkdir -p ${NEWWEB}";
 run_cmd "mkdir sites; mkdir profiles" "${NEWWEB}";
 
 run_cmd "ln -s ../../${FULLDOMAIN} ." "${NEWWEB}/sites";
-run_cmd "ln -s ../../${DOMAIN}_profile ${DOMAIN}" "${NEWWEB}/profiles";
+run_cmd "ln -s ../../${PROFILENAME}_profile ${PROFILENAME}" "${NEWWEB}/profiles";
 
-run_hooked_cmd "profile_make" "drush -y make --working-copy profiles/${DOMAIN}/${DOMAIN}.make" "${NEWWEB}";
+run_hooked_cmd "profile_make" "drush -y make --working-copy profiles/${PROFILENAME}/${PROFILENAME}.make" "${NEWWEB}";
 
 if ${KEEPNS}; then
   run_cmd "cp -r ${OLDWEB}/profiles/${NS} ${NEWWEB}/profiles/${NS}";
@@ -19,7 +19,7 @@ else
   run_hooked_cmd "nodestream_make" "drush -y make --no-core --contrib-destination=. drupal-org.make" "${NEWWEB}/profiles/nodestream";
 fi
 
-ask "Do you want to move the web/ symlink from ${OLDWEB} to ${NEWWEB}" "ln -sfn \"${NEWWEB}\" web";
+ask "Do you want to move the web/ symlink from ${OLDWEB} to ${NEWWEB}" "run_hooked_cmd \"relink\" \"ln -sfn \\\"${NEWWEB}\\\" web\"";
 
 ask "Do you want to remove the directory ${OLDWEB} and all its contents" "rm -rf ${OLDWEB}";
 
