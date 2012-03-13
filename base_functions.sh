@@ -1,24 +1,6 @@
 #!/bin/bash
-if [ ! -f build.conf.sh ]; then
-  echo "You need to create a build.conf.sh file. See the README for an example.";
-  exit 1;
-fi
-source build.conf.sh;
 
-if [ -e web ] && [ ! -L web ]; then
-  die "web/ exists, but is not a symlink. Please remove it, as it will be overwritten."
-else
-  OLDWEB=`readlink web`;
-fi
-
-NEWWEB="web-$(date +%F-%R)";
-KEEPNS=false;
-NS="nodestream";
-NSPROFILE="profiles/nodestream";
-FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
-if [ ! $PROFILENAME ]; then
-  PROFILENAME=${DOMAIN}
-fi
+# Functions at the top, initialization at the bottom.
 
 while getopts ":n" opt; do
   case $opt in
@@ -90,3 +72,26 @@ ask() {
     run_cmd "${2}";
   fi
 }
+
+if [ ! -f build.conf.sh ]; then
+  echo "You need to create a build.conf.sh file. See the README for an example.";
+  exit 1;
+fi
+source build.conf.sh;
+
+if [ -e web ] && [ ! -L web ]; then
+  die "web/ exists, but is not a symlink. Please remove it, as it will be overwritten."
+else
+  OLDWEB=`readlink web`;
+fi
+
+NEWWEB="web-$(date +%F-%R)";
+KEEPNS=false;
+NS="nodestream";
+NSPROFILE="profiles/nodestream";
+FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
+if [ ! $PROFILENAME ]; then
+  PROFILENAME=${DOMAIN}
+fi
+
+
