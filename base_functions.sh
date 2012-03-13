@@ -73,6 +73,10 @@ ask() {
   fi
 }
 
+relink() {
+  run_hooked_cmd "relink" "ln -sfn \"${NEWWEB}\" web";
+}
+
 if [ ! -f build.conf.sh ]; then
   echo "You need to create a build.conf.sh file. See the README for an example.";
   exit 1;

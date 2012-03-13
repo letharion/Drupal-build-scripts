@@ -20,10 +20,10 @@ else
 fi
 
 if [ ${OLDWEB} ]; then
-  ask "Do you want to move the web/ symlink from ${OLDWEB} to ${NEWWEB}" "run_hooked_cmd \"relink\" \"ln -sfn \\\"${NEWWEB}\\\" web\"";
+  ask "Do you want to move the web/ symlink from ${OLDWEB} to ${NEWWEB}" "relink";
   ask "Do you want to remove the directory ${OLDWEB} and all its contents" "rm -rf ${OLDWEB}";
 else
-  run_hooked_cmd "relink" "ln -sfn \"${NEWWEB}\" web";
+  relink;
 fi
 
 exit 0;
