@@ -19,8 +19,11 @@ else
   run_hooked_cmd "nodestream_make" "drush -y make --no-core --contrib-destination=. drupal-org.make" "${NEWWEB}/profiles/nodestream";
 fi
 
-ask "Do you want to move the web/ symlink from ${OLDWEB} to ${NEWWEB}" "run_hooked_cmd \"relink\" \"ln -sfn \\\"${NEWWEB}\\\" web\"";
-
-ask "Do you want to remove the directory ${OLDWEB} and all its contents" "rm -rf ${OLDWEB}";
+if [ ${OLDWEB} ]; then
+  ask "Do you want to move the web/ symlink from ${OLDWEB} to ${NEWWEB}" "run_hooked_cmd \"relink\" \"ln -sfn \\\"${NEWWEB}\\\" web\"";
+  ask "Do you want to remove the directory ${OLDWEB} and all its contents" "rm -rf ${OLDWEB}";
+else
+  run_hooked_cmd "relink" "ln -sfn \"${NEWWEB}\" web";
+fi
 
 exit 0;
