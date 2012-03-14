@@ -16,7 +16,7 @@ It will at some future point be replaced with drush and provision.
 * ln -s build/install.sh install.sh
 
 ## Configuration
-In your root directory, create a build.conf.sh, which MUST have DOMAIN and TOPDOMAIN defined.
+In your root directory, create a build.conf, which MUST have DOMAIN and TOPDOMAIN defined.
 
 ## Hooks
 Each hook supports a pre and a post op.
@@ -25,7 +25,7 @@ Each hook supports a pre and a post op.
 * hook_OP_profile_make
 * hook_OP_nodestream_make
 
-## Example build.conf.sh:
+## Example build.conf:
 ```bash
 DOMAIN=nodeone
 TOPDOMAIN=se

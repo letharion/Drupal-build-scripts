@@ -25,8 +25,9 @@ seq() {
 
 # pushd and popd doesn't have a quite option, so we enforce silence
 run_cmd() {
-  if pushd "$2" > /dev/null; then
-    if ! eval $1; then
+  if pushd "${2}" > /dev/null; then
+    if ! eval ${1}; then
+      echo "Command ${1} failed in directory ${2}";
       exit 1
     fi
     popd > /dev/null
@@ -77,11 +78,11 @@ relink() {
   run_hooked_cmd "relink" "ln -sfn \"${NEWWEB}\" web";
 }
 
-if [ ! -f build.conf.sh ]; then
-  echo "You need to create a build.conf.sh file. See the README for an example.";
+if [ ! -f build.conf ]; then
+  echo "You need to create a build.conf file. See the README for an example.";
   exit 1;
 fi
-source build.conf.sh;
+source build.conf;
 
 if [ -e web ] && [ ! -L web ]; then
   die "web/ exists, but is not a symlink. Please remove it, as it will be overwritten."
