@@ -2,6 +2,8 @@
 
 # Functions at the top, initialization at the bottom.
 
+source build/signals.sh
+
 while getopts ":n" opt; do
   case $opt in
     n)
