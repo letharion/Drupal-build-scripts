@@ -12,7 +12,7 @@ build_abort() {
   ABORTED=true;
   echo "Sort abort requested. Cleaning up";
   if [ -d ${NEWWEB} ]; then
-    if [ `readlink web` != ${NEWWEB} ]; then
+    if [ `readlink web` != "${NEWWEB}" ]; then
       run_cmd "rm -rf ${NEWWEB}"
       die "Removed unfinished build directory ${NEWWEB}";
     fi
