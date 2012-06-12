@@ -97,7 +97,12 @@ NEWWEB="web-$(date +%F-%T)";
 KEEPNS=false;
 NS="nodestream";
 NSPROFILE="profiles/nodestream";
+
 FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
+if [ -n "${SUBDOMAIN}" ]; then
+  FULLDOMAIN="${SUBDOMAIN}.${FULLDOMAIN}";
+fi
+
 if [ ! $PROFILENAME ]; then
   PROFILENAME=${DOMAIN}
 fi
