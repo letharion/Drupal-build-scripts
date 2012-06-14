@@ -8,7 +8,7 @@ run_cmd "mkdir sites; mkdir profiles" "${NEWWEB}";
 run_cmd "ln -s ../../${FULLDOMAIN} ." "${NEWWEB}/sites";
 run_cmd "ln -s ../../${PROFILENAME}_profile ${PROFILENAME}" "${NEWWEB}/profiles";
 
-run_hooked_cmd "profile_make" "drush -y make --working-copy profiles/${PROFILENAME}/${PROFILENAME}.make" "${NEWWEB}";
+run_hooked_cmd "profile_make" "drush -y make --working-copy --no-gitinfofile profiles/${PROFILENAME}/${PROFILENAME}.make" "${NEWWEB}";
 
 if [ ${OLDWEB} ]; then
   ask "Do you want to move the web/ symlink from ${OLDWEB} to ${NEWWEB}" "relink";

@@ -2,6 +2,8 @@
 
 # Functions at the top, initialization at the bottom.
 
+source build/signals.sh
+
 while getopts ":n" opt; do
   case $opt in
     n)
@@ -25,11 +27,13 @@ seq() {
 
 # pushd and popd doesn't have a quite option, so we enforce silence
 run_cmd() {
-  if pushd "$2" > /dev/null; then
-    if ! eval $1; then
-      exit 1
+  if pushd "${2}" > /dev/null; then
+    if ! eval ${1}; then
+      die "Command ${1} failed in directory ${2}!";
     fi
     popd > /dev/null
+  else
+    die "Wanted to run ${1} in ${2} but ${2} does not exist!";
   fi
 }
 
@@ -77,11 +81,11 @@ relink() {
   run_hooked_cmd "relink" "ln -sfn \"${NEWWEB}\" web";
 }
 
-if [ ! -f build.conf.sh ]; then
-  echo "You need to create a build.conf.sh file. See the README for an example.";
+if [ ! -f build.conf ]; then
+  echo "You need to create a build.conf file. See the README for an example.";
   exit 1;
 fi
-source build.conf.sh;
+source build.conf;
 
 if [ -e web ] && [ ! -L web ]; then
   die "web/ exists, but is not a symlink. Please remove it, as it will be overwritten."
@@ -89,11 +93,17 @@ else
   OLDWEB=`readlink web`;
 fi
 
+
 NEWWEB="web-$(date +%F-%H-%M-%S)";
 KEEPNS=false;
 NS="nodestream";
 NSPROFILE="profiles/nodestream";
+
 FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
+if [ -n "${SUBDOMAIN}" ]; then
+  FULLDOMAIN="${SUBDOMAIN}.${FULLDOMAIN}";
+fi
+
 if [ ! $PROFILENAME ]; then
   PROFILENAME=${DOMAIN}
 fi

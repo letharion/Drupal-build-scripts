@@ -8,7 +8,7 @@ if [ "$REPLY" != "y" ]; then
 fi
 
 invoke "pre_install"
-run_cmd "drush @${DOMAIN}-loc site-install ${DOMAIN} --sites-subdir='${DOMAIN}.${TOPDOMAIN}' --site-name='${DOMAIN}.${TOPDOMAIN}'" "web/sites/${DOMAIN}.${TOPDOMAIN}"
-run_cmd "drush @${DOMAIN}-loc cc all" "web/sites/${DOMAIN}.${TOPDOMAIN}"
+run_cmd "drush @${DOMAIN}-loc site-install ${DOMAIN} --sites-subdir='${FULLDOMAIN}' --site-name='${FULLDOMAIN}'" "web/sites/${FULLDOMAIN}"
+run_cmd "drush @${DOMAIN}-loc cc all" "web/sites/${FULLDOMAIN}"
 invoke "post_install"
 
