@@ -89,7 +89,7 @@ else
   OLDWEB=`readlink web`;
 fi
 
-NEWWEB="web-$(date +%F-%R)";
+NEWWEB="web-$(date +%F-%H-%M-%S)";
 KEEPNS=false;
 NS="nodestream";
 NSPROFILE="profiles/nodestream";
