@@ -93,7 +93,16 @@ else
   OLDWEB=`readlink web`;
 fi
 
-NEWWEB="web-$(date +%F-%T)";
+if [ -z "$DATEFORMAT" ]; then
+  DATEFORMAT="%F-%T";
+fi
+if [ -z "$WEBDIRECTORY" ]; then
+  WEBDIRECTORY="web";
+fi
+if [ -z "$NEWWEB" ]; then
+  NEWWEB="${WEBDIRECTORY}-$(date +${DATEFORMAT})";
+fi
+
 KEEPNS=false;
 NS="nodestream";
 NSPROFILE="profiles/nodestream";
