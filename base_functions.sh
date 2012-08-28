@@ -2,6 +2,7 @@
 
 # Functions at the top, initialization at the bottom.
 
+source build/sanity_checks.sh
 source build/signals.sh
 
 while getopts ":n" opt; do
