@@ -82,18 +82,6 @@ relink() {
   run_hooked_cmd "relink" "ln -sfn \"${NEWWEB}\" web";
 }
 
-if [ ! -f build.conf ]; then
-  echo "You need to create a build.conf file. See the README for an example.";
-  exit 1;
-fi
-source build.conf;
-
-if [ -e web ] && [ ! -L web ]; then
-  die "web/ exists, but is not a symlink. Please remove it, as it will be overwritten."
-else
-  OLDWEB=`readlink web`;
-fi
-
 if [ -z "$DATEFORMAT" ]; then
   DATEFORMAT="%F-%T";
 fi
