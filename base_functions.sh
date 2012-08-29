@@ -98,10 +98,11 @@ if [ -z "$DATEFORMAT" ]; then
   DATEFORMAT="%F-%T";
 fi
 if [ -z "$WEBDIRECTORY" ]; then
-  WEBDIRECTORY="web";
+  WEBDIRECTORY="web-";
 fi
 if [ -z "$NEWWEB" ]; then
-  NEWWEB="${WEBDIRECTORY}-$(date +${DATEFORMAT})";
+  DATE=$(date +${DATEFORMAT})
+  NEWWEB="${WEBDIRECTORY}${DATE}";
 fi
 
 KEEPNS=false;
