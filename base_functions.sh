@@ -2,7 +2,6 @@
 
 # Functions at the top, initialization at the bottom.
 
-source build/sanity_checks.sh
 source build/signals.sh
 
 while getopts ":n" opt; do
@@ -81,6 +80,8 @@ ask() {
 relink() {
   run_hooked_cmd "relink" "ln -sfn \"${NEWWEB}\" web";
 }
+
+source build/sanity_checks.sh
 
 if [ -z "$DATEFORMAT" ]; then
   DATEFORMAT="%F-%T";
