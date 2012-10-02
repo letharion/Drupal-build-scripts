@@ -4,13 +4,11 @@
 NUM_MAKE_LINES=$(drush | grep "^ make" | wc -l);
 
 if [ "$NUM_MAKE_LINES" -lt 1 ]; then
-  echo "The drush extension make does not exist. Aborting.";
-  exit 1;
+  die "The drush extension make does not exist. Aborting.";
 fi
 
 if [ ! -f build.conf ]; then
-  echo "You need to create a build.conf file. See the README for an example.";
-  exit 1;
+  die "You need to create a build.conf file. See the README for an example.";
 fi
 source build.conf;
 

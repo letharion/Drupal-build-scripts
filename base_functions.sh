@@ -45,7 +45,7 @@ apply_patch() {
   done
 
   echo "Applying patch ${1} in ${2}"
-  run_cmd "git apply ${PATCH_DIR}${1}" "${2}" 
+  run_cmd "git apply ${PATCH_DIR}${1}" "${2}"
 }
 
 invoke() {
@@ -62,7 +62,7 @@ run_hooked_cmd() {
 
 die() {
   echo "${1}"
-  exit 1;
+  build_abort;
 }
 
 ask() {

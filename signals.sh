@@ -1,11 +1,13 @@
 
 # trap keyboard interrupt (control-c)
 trap build_abort SIGINT
+# No statics in bash, so use a global.
 ABORTED=false;
 
 build_abort() {
   if ${ABORTED}; then
-    die "Hard abort requested."
+    echo "Hard abort requested.";
+    exit 1;
   fi
 
   popd;
@@ -14,9 +16,10 @@ build_abort() {
   if [ -d ${NEWWEB} ]; then
     if [ `readlink web` != "${NEWWEB}" ]; then
       run_cmd "rm -rf ${NEWWEB}"
-      die "Removed unfinished build directory ${NEWWEB}";
+      echo "Removed unfinished build directory ${NEWWEB}";
     fi
   fi
 
-  die "Aborting";
+  echo "Aborting";
+  exit 1;
 }
