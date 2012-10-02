@@ -84,7 +84,7 @@ relink() {
 source build/sanity_checks.sh
 
 if [ -z "$DATEFORMAT" ]; then
-  DATEFORMAT="%F-%T";
+  DATEFORMAT="%F_%H%M%S";
 fi
 if [ -z "$WEBDIRECTORY" ]; then
   WEBDIRECTORY="web-";
