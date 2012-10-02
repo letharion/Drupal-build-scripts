@@ -81,6 +81,7 @@ relink() {
   run_hooked_cmd "relink" "ln -sfn \"${NEWWEB}\" web";
 }
 
+# Make some checks, include the configuration, and make more checks.
 source build/sanity_checks.sh
 
 if [ -z "$DATEFORMAT" ]; then
@@ -93,10 +94,6 @@ if [ -z "$NEWWEB" ]; then
   DATE=$(date +${DATEFORMAT})
   NEWWEB="${WEBDIRECTORY}${DATE}";
 fi
-
-KEEPNS=false;
-NS="nodestream";
-NSPROFILE="profiles/nodestream";
 
 FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
 if [ -n "${SUBDOMAIN}" ]; then
