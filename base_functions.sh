@@ -84,24 +84,23 @@ relink() {
 # Make some checks, include the configuration, and make more checks.
 source build/sanity_checks.sh
 
-if [ -z "$DATEFORMAT" ]; then
+# Assign default values to various variables if the build.conf has not.
+if [ -z "${DATEFORMAT}" ]; then
   DATEFORMAT="%F_%H%M%S";
 fi
-if [ -z "$WEBDIRECTORY" ]; then
+if [ -z "${WEBDIRECTORY}" ]; then
   WEBDIRECTORY="web-";
 fi
-if [ -z "$NEWWEB" ]; then
+if [ -z "${NEWWEB}" ]; then
   DATE=$(date +${DATEFORMAT})
   NEWWEB="${WEBDIRECTORY}${DATE}";
 fi
-
-FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
-if [ -n "${SUBDOMAIN}" ]; then
-  FULLDOMAIN="${SUBDOMAIN}.${FULLDOMAIN}";
+if [ -z "${FULLDOMAIN}" ]; then
+  FULLDOMAIN="${DOMAIN}.${TOPDOMAIN}";
+  if [ -n "${SUBDOMAIN}" ]; then
+    FULLDOMAIN="${SUBDOMAIN}.${FULLDOMAIN}";
+  fi
 fi
-
-if [ ! $PROFILENAME ]; then
+if [ -z "${PROFILENAME}" ]; then
   PROFILENAME=${DOMAIN}
 fi
-
-
