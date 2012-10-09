@@ -104,3 +104,7 @@ fi
 if [ -z "${PROFILENAME}" ]; then
   PROFILENAME=${DOMAIN}
 fi
+
+PLATFORM_ROOT="$(pwd)/${NEWWEB}"
+PLATFORM_ALIAS="platform_${DOMAIN}";
+MAKEFILE="${PROFILENAME}.make"
