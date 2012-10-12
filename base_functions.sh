@@ -73,6 +73,12 @@ ask() {
     local ACCEPT="${3}"
   fi
 
+  if ${ALLYES}; then
+    echo "${1} (Auto accepted)";
+    run_cmd "${2}";
+    return;
+  fi
+
   read -p "${1} (y/N)? "
   if [ "${REPLY}" == "${ACCEPT}" ]; then
     run_cmd "${2}";
