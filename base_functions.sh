@@ -4,10 +4,12 @@
 
 source build/signals.sh
 
-while getopts ":n" opt; do
+ALLYES=false;
+
+while getopts ":y" opt; do
   case $opt in
-    n)
-      KEEPNS=true
+    y)
+      ALLYES=true
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
