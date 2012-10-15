@@ -112,7 +112,12 @@ fi
 if [ -z "${PROFILENAME}" ]; then
   PROFILENAME=${DOMAIN}
 fi
-
-PLATFORM_ROOT="$(pwd)/${NEWWEB}"
-PLATFORM_ALIAS="platform_${DOMAIN}";
-MAKEFILE="${PROFILENAME}.make"
+if [ -z "${PLATFORM_ROOT}" ]; then
+  PLATFORM_ROOT="$(pwd)/${NEWWEB}"
+fi
+if [ -z "${PLATFORM_ALIAS}" ]; then
+  PLATFORM_ALIAS="platform_${DOMAIN}";
+fi
+if [ -z "${PROFILENAME}" ]; then
+  MAKEFILE="${PROFILENAME}.make"
+fi
