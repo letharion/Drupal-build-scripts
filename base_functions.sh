@@ -118,6 +118,6 @@ fi
 if [ -z "${PLATFORM_ALIAS}" ]; then
   PLATFORM_ALIAS="platform_${DOMAIN}";
 fi
-if [ -z "${PROFILENAME}" ]; then
+if [ -z "${MAKEFILE}" ]; then
   MAKEFILE="${PROFILENAME}.make"
 fi
