@@ -4,6 +4,13 @@ Long term this script may move towards becoming a drush extension itself.
 ## Install with:
 ### Add to a new repository.
 
+The server running provision must have a server_master context.
+If you don't have one since before (an aegir install would create it for you), you can create it with
+
+```bash
+drush provision-save @server_master --context_type='server'
+```
+
 * git submodule add git@github.com:letharion/Drupal-build-scripts.git build
 * ln -s build/build.sh build.sh
 * ln -s build/install.sh install.sh
