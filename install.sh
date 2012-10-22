@@ -16,7 +16,7 @@ if [ $ALLYES ]; then
   OPTS="-y";
 fi
 
-run_cmd "drush @${DOMAIN} site-install ${DOMAIN} --sites-subdir='${FULLDOMAIN}' --site-name='${FULLDOMAIN}' ${OPTS}" "web/sites/${FULLDOMAIN}"
+run_hooked_cmd "provision_install" "drush @${DOMAIN} provision-install ${DOMAIN} --sites-subdir='${FULLDOMAIN}' --site-name='${FULLDOMAIN}' ${OPTS} --debug" "web/sites/${FULLDOMAIN}"
 
 run_cmd "drush @${DOMAIN} cc all" "web/sites/${FULLDOMAIN}"
 invoke "post_install"
