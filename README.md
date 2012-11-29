@@ -1,3 +1,14 @@
+## Important notice.
+This version (master), is currently not being maintained much, although
+important fixes will be commited as necessary. All the interesting work is
+happening in either the 'provision' or 'drush-ext' branches. 'provision' is an
+intermediary step towards using aegir's backend provision, and do less work in
+shell scripting. 'drush-ext' is closer to the intended form of this project.
+Shell script free drush extension that relies on provision to do the heavy
+lifting, and moves configuration settings into a provision extension.
+
+## Drupal build scripts
+
 This project helps building a Drupal project that is based on the NodeStream profile.
 It will at some future point be replaced with drush and provision.
 
