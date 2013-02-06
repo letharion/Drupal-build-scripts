@@ -4,13 +4,24 @@
 
 source build/signals.sh
 
-while getopts ":n" opt; do
+ALLYES=false;
+NOCLEAN=false;
+DEBUG="";
+
+while getopts ":ydc" opt; do
   case $opt in
-    n)
-      KEEPNS=true
+    y)
+      ALLYES=true
+      ;;
+    d)
+      DEBUG="--debug"
+      ;;
+    c)
+      NOCLEAN=true;
       ;;
     \?)
-      echo "Invalid option: -$OPTARG" >&2
+      echo "Invalid option: -$OPTARG" >&2;
+      exit;
       ;;
   esac
 done
@@ -69,6 +80,12 @@ ask() {
   local ACCEPT="y"
   if [ "${3}" != "" ]; then
     local ACCEPT="${3}"
+  fi
+
+  if ${ALLYES}; then
+    echo "${1} (Auto accepted)";
+    run_cmd "${2}";
+    return;
   fi
 
   read -p "${1} (y/N)? "
